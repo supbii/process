@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style type="text/css">
+        @font-face {
+        font-family: 'MapoFlowerIsland';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoFlowerIslandA.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        }
+        body {
+        margin: 0;
+        overflow: hidden;
+        }
+        .container {
+        display: flex;
+        height: 100vh;
+        }
+        .column {
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        padding: 10px;
+        cursor: text;
+        }
+        #column1 {
+        font-family: 'MapoFlowerIsland';
+        font-size: 2rem;
+        flex: 3;
+        background-image: url('background.png'); background-size: cover;
+        }
+        .columns-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        }
+        #column2 {
+            flex: 1;
+        }
+        #column3 {
+            flex: 3;
+        }
+        .scrolling-text {
+        font-size: 2rem;
+        white-space: nowrap;
+        cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column" id="column1" contenteditable="true">
+        </div>
+        <div class="columns-wrapper">
+        <div class="column" id="column2">
+            <div class="scrolling-text" id="text1"></div>
+        </div>
+        <div class="column" id="column3"></div>
+        </div>
+    </div>
+        <script>
+            const typingColumn = document.getElementById('column1');
+            const scrollingText = document.getElementById('text1');
+            const column2 = document.getElementById('column2');
+            const wordsArray = ['아해가', '아해도', '길은', '사정은', '아버지가', '나의', '나는', '죄가', '내게', '위조가', '차라리', '그렇게', '껑충', '어떻게', '그중에', '드디어', '번쩍', '지금', '꼭', '무섭다고', '떨고', '무서운', '무서워하는', '질주하지', '뛰어', '넘어야', '하는지', '더럽혀', '등장하지', '않는', '가서', '하는', '품고', '식은', '졸', '뿐이', '다른', '뚫린', '없는', '것이', '아니', '왜', '이라도', '도로로', '얼굴로', '나와', '아버지를', '죄를', '나를', '음모를', '백지를', '뜻을', '침상에서', '곁에서', '꿈에', '동시에', '적에', '위에', '침울한', '거대한', '미안한', '결석한', '속의', '없는', '이라도', '하여도', '고독의', '잤다', '좋소', '적당하오', '나았소', '모였소', '중일까', '하였고', '들어온다', '놓았다', '전한다', '있다', '골목', '결석', '꿈', '무능', '거울', '갈망자', '어디'];
+            
+            function generateRandomWord() {
+                return wordsArray[Math.floor(Math.random() * wordsArray.length)];
+            }
+            function updateText() {
+                scrollingText.textContent = generateRandomWord();
+            }
+            // Initial text update
+            updateText();
+            // Update text on scroll
+            column2.addEventListener('click', () => {
+            const word = scrollingText.textContent;
+            typingColumn.textContent += word + ' ';
+            updateText();
+            });
+            // Handle typing input
+            typingColumn.addEventListener('input', () => {
+            const typedText = typingColumn.textContent.trim();
+            const currentWord = scrollingText.textContent;
+            if (typedText === currentWord) {
+                updateText();
+                typingColumn.textContent = '';
+            }
+            });
+        </script>
+</body>
+</html>
